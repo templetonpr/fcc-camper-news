@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" ng-app="camperNews" ng-controller="newsController">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Camper News</title>
+  <meta name="description" content="Free Code Camp: Camper News">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+  <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Camper News</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">Camper News</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Log In<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <form>
+                <li>
+                  <input type="text" placeholder="Username" disabled="disabled">
+                </li>
+                <li>
+                  <input type="password" placeholder="Password" disabled="disabled">
+                </li>
+                <li>
+                  <button class="btn btn-primary btn-sm btn-block" disabled="disabled">Log In</button>
+                </li>
+              </form>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="spacer"></div>
+
+  <div class="jumbotron">
+    <div class="container">
+      <h3 class="text-center">Top Stories</h3>
+      <div class="row" id="topStoriesContainer">
+
+        <a ng-repeat="story in topStories" href="{{story.link}}" class="featuredItem col-xs-6 col-sm-4" ng-style="{'background-image': 'url({{story.image}})'}">
+          <h4 class="text-center featuredItemTitle">{{story.headline}}</h4>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <div class="row sortButtons">
+      <div class="col-xs-2 col-xs-offset-1 col-sm-1">
+        <h4>Sort by:</h4>
+      </div>
+      <div class="col-xs-2 col-sm-1">
+        <button id="sortButtonHot" class="btn btn-primary" ng-click="changeOrder('_id')">Hot</button>
+      </div>
+      <div class="col-xs-2 col-sm-1">
+        <button id="sortButtonTop" class="btn btn-primary" ng-click="changeOrder('-rank')">Top</button>
+      </div>
+      <div class="col-xs-2 col-sm-1">
+        <button id="sortButtonNew" class="btn btn-primary" ng-click="changeOrder('-timePosted')">New</button>
+      </div>
+    </div>
+
+    <ul id="newsListContainer">
+
+      <li ng-repeat="newsItem in news | orderBy: sortOrder" class="row newsItem">
+        <div class="media">
+          <div class="media-left">
+            <div class="newsItemThumbnail" ng-style="{'background-image': 'url({{newsItem.image}})'}" alt="{{newsItem.storyLink}}"></div>
+            <p class="text-muted text-center">{{newsItem.rank}} Votes</p>
+          </div>
+          <div class="media-body">
+            <a href="{{newsItem.link}}"><h4 class="media-heading">{{newsItem.headline}}</h4></a>
+            <p class="text-muted">Posted on {{newsItem.timePosted | date:'medium'}} by <a href="http://www.freecodecamp.com/{{newsItem.author.username}}">{{newsItem.author.username}}</a></p>
+            <p>{{newsItem.metaDescription}}</p>
+          </div>
+        </div>
+      </li>
+
+    </ul>
+
+    <hr>
+    <footer>
+      <p class="text-center">&copy; Company 2016</p>
+    </footer>
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
